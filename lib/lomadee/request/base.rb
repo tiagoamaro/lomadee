@@ -4,7 +4,7 @@ module Lomadee
       protected
 
         def request(url, params)
-          JSON.parse(connection.get(url, params.merge(format: :json, page: 1)).body)
+          JSON.parse(connection.get(url, params.merge(format: :json)).body)
         end
 
         def url_categories

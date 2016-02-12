@@ -11,25 +11,30 @@ module Lomadee
       @sandbox = sandbox
     end
 
-    def categories(params)
-      raise ArgumentError unless params.key?(:categoryId)
-
-      request.categories(params).fetch('category')
-    end
-
     def products(params)
       raise ArgumentError unless params.key?(:categoryId)
 
-      request.products(params).fetch('product')
+      search(:products, params, 'product')
     end
 
     def offers(params)
       raise ArgumentError unless params.key?(:productId)
 
-      request.offers(params)
+      search(:offers, params, 'offer')
     end
 
     private
+
+      def search(method, params, index, data = [], page = 1, pages = 1)
+        if page <= pages
+          response = request.send(method, params.merge(page: page)).first
+          data << response.fetch(index)
+
+          search(method, params, index, data, page + 1, response['totalpages'])
+        end
+
+        data.flatten
+      end
 
       def request
         if @sandbox
