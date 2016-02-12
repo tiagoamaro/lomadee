@@ -27,7 +27,7 @@ module Lomadee
 
       def search(method, params, index, data = [], page = 1, pages = 1)
         if page <= pages
-          response = request.send(method, params.merge(page: page)).first
+          response = request.send(method, params.merge(page: page))
           data << response.fetch(index)
 
           search(method, params, index, data, page + 1, response['totalpages'])

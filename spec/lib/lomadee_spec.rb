@@ -21,7 +21,7 @@ describe 'Lomadee' do
       end
 
       it { expect(response['productshortname']).to eq('Sony Playstation 4') }
-      it { expect(response['pricemax']).to eq('3653.84') }
+      it { expect(response['pricemax']).to eq('3794.71') }
       it { expect(response['pricemin']).to eq('1979.91') }
     end
 
